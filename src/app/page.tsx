@@ -65,7 +65,7 @@ export default function Home() {
 
 {/* FLOATING SOCIAL BUTTONS */}
 
-<div className="fixed right-5 bottom-5 z-50 flex flex-col gap-4">
+<div className="fixed left-5 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
 
   {/* WHATSAPP GROUP */}
 
@@ -182,31 +182,31 @@ export default function Home() {
     <img
       src="/images/banner1.jpg"
       alt="banner1"
-      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
+      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
     />
 
     <img
       src="/images/banner2.jpg"
       alt="banner2"
-      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
+      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
     />
 
     <img
       src="/images/banner3.jpg"
       alt="banner3"
-      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
+      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
     />
 
     <img
       src="/images/banner4.jpg"
       alt="banner4"
-      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
+      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
     />
 
     <img
       src="/images/banner5.jpg"
       alt="banner5"
-      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
+      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
     />
 
   </div>
@@ -817,19 +817,8 @@ body {
   width: 500%;
   animation: slider 25s infinite;
 }
-.slider-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  object-position: center;
-  flex-shrink: 0;
-}
 
-@media (min-width: 768px) {
-  .slider-image {
-    height: 520px;
-  }
-}
+
 
 @keyframes slider {
 
