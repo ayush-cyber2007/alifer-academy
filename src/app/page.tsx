@@ -359,7 +359,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/nda-thumb.jpg"
   alt="NDA Maths"
- className="h-[320px] w-full object-contain bg-black"
+ className="h-[220px] md:h-[320px] w-full object-cover"
 />
               <div className="p-8">
 
@@ -386,7 +386,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/upsc-thumb.jpg"
   alt="UPSC Maths"
-  className="h-[320px] w-full object-contain bg-black"
+  className="h-[220px] md:h-[320px] w-full object-cover"
 />
 
               <div className="p-8">
@@ -414,7 +414,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/engg-thumb.jpg"
   alt="Engineering Maths"
-  className="h-[320px] w-full object-contain bg-black"
+  className="h-[220px] md:h-[320px] w-full object-cover"
 />
               <div className="p-8">
 
