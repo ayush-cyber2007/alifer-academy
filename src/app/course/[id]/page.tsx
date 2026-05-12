@@ -20,113 +20,13 @@ export default function CoursePage() {
     course.lectures[0].videoUrl
   );
 
-  const [lectures, setLectures] = useState<any[]>([]);
+  const [lectures] = useState(course.lectures);
 
   const [materials, setMaterials] = useState<any[]>([]);
 
   const [unlocked, setUnlocked] = useState(false);
 
-  useEffect(() => {
-
-    const fetchLectures = async () => {
-
-      const querySnapshot = await getDocs(
-
-        collection(
-          db,
-          "courses",
-          "engineering-maths-1",
-          "lectures"
-        )
-
-      );
-
-      const data: any[] = [];
-
-      querySnapshot.forEach((docItem) => {
-
-        data.push(docItem.data());
-
-      });
-
-      setLectures(data);
-
-      if (data.length > 0) {
-
-        setSelectedVideo(data[0].video);
-
-      }
-
-    };
-
-    const fetchMaterials = async () => {
-
-      const querySnapshot = await getDocs(
-
-        collection(
-          db,
-          "courses",
-          "engineering-maths-1",
-          "materials"
-        )
-
-      );
-
-      const data: any[] = [];
-
-      querySnapshot.forEach((docItem) => {
-
-        data.push(docItem.data());
-
-      });
-
-      setMaterials(data);
-
-    };
-
-    fetchLectures();
-
-    fetchMaterials();
-
-    const unsubscribe = auth.onAuthStateChanged(
-
-      async (user) => {
-
-        if (!user) return;
-
-        const userRef = doc(
-          db,
-          "users",
-          user.uid
-        );
-
-        const userSnap = await getDoc(userRef);
-
-        if (userSnap.exists()) {
-
-          const data = userSnap.data();
-
-          if (
-
-            data.purchasedCourses?.includes(
-              "arjuna-3-engineering-maths-1"
-            )
-
-          ) {
-
-            setUnlocked(true);
-
-          }
-
-        }
-
-      }
-
-    );
-
-    return () => unsubscribe();
-
-  }, []);
+  
 
   return (
 
