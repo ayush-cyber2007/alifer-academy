@@ -21,7 +21,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
-          <h1 className="text-3xl md:text-4xl font-black text-cyan-400 tracking-widest">
+          <h1 className="text-xl md:text-4xl font-black text-cyan-400 tracking-wide md:tracking-widest">
             ALIFER ACADEMY NEW
           </h1>
 
@@ -63,16 +63,15 @@ export default function Home() {
 
       {/* FLOATING SOCIAL BUTTONS */}
 
-<div className="fixed right-5 bottom-5 z-50 flex flex-col gap-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 mt-12 md:mt-20">
 
   {/* WHATSAPP GROUP */}
 
   <a
-    href="https://chat.whatsapp.com/Eymsd5JggztFF9wNlJxqEd"
-    target="_blank"
-    className="group relative w-16 h-16 rounded-full bg-green-500 flex items-center justify-center text-white text-3xl shadow-[0_0_40px_rgba(0,255,100,0.6)] hover:scale-110 transition duration-300"
-  >
-
+  href="https://chat.whatsapp.com/Eymsd5JggztFF9wNlJxqEd"
+  target="_blank"
+  className="group relative w-16 h-16 rounded-full bg-green-500 flex items-center justify-center text-white text-3xl shadow-[0_0_40px_rgba(0,255,100,0.6)] hover:scale-110 transition duration-300"
+>
     <FaWhatsapp />
 
     <span className="absolute right-20 opacity-0 group-hover:opacity-100 bg-black px-4 py-2 rounded-xl text-sm whitespace-nowrap transition">
@@ -181,31 +180,31 @@ export default function Home() {
     <img
       src="/images/banner1.jpg"
       alt="banner1"
-      className="slider-image object-cover"
+      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
     />
 
     <img
       src="/images/banner2.jpg"
       alt="banner2"
-      className="slider-image object-cover"
+      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
     />
 
     <img
       src="/images/banner3.jpg"
       alt="banner3"
-      className="slider-image object-cover"
+      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
     />
 
     <img
       src="/images/banner4.jpg"
       alt="banner4"
-      className="slider-image object-cover"
+      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
     />
 
     <img
       src="/images/banner5.jpg"
       alt="banner5"
-      className="slider-image object-cover"
+      className="slider-image w-full h-[220px] md:h-[520px] object-cover object-center"
     />
 
   </div>
@@ -332,7 +331,7 @@ export default function Home() {
              <img
   src="/images/thumbnails/iit-thumb.jpg"
   alt="IIT Maths"
-  className="h-[320px] w-full object-contain bg-black"
+  className="h-[220px] md:h-[320px] w-full object-cover bg-black"
 />
 
               <div className="p-8">
@@ -816,13 +815,18 @@ body {
   width: 500%;
   animation: slider 25s infinite;
 }
-
 .slider-image {
-  width: 100vw;
-  height: 520px;
+  width: 100%;
+  height: 220px;
   object-fit: cover;
   object-position: center;
   flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .slider-image {
+    height: 520px;
+  }
 }
 
 @keyframes slider {
