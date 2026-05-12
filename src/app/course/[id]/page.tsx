@@ -1,24 +1,20 @@
+
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { courses } from "../../../data/courseData";
 
 export default function CoursePage() {
 
   const course = courses[0];
+
   const lectures = course.lectures;
+
+  const materials = course.materials;
 
   const [selectedVideo, setSelectedVideo] = useState(
     course.lectures[0].videoUrl
   );
-
-
-
-  const [materials, setMaterials] = useState<any[]>([]);
-
-  const [unlocked, setUnlocked] = useState(false);
-
-  
 
   return (
 
@@ -67,7 +63,7 @@ export default function CoursePage() {
             src={selectedVideo}
             title="Lecture Video"
             allowFullScreen
-            className="w-full"
+            className="w-full rounded-[40px]"
           />
 
         </div>
@@ -76,7 +72,7 @@ export default function CoursePage() {
 
         <div className="grid lg:grid-cols-2 gap-10">
 
-          {/* Lectures */}
+          {/* Video Lectures */}
 
           <div className="bg-zinc-900 rounded-[40px] p-8 border border-cyan-500/20">
 
@@ -99,7 +95,7 @@ export default function CoursePage() {
 
                     <div>
 
-                      <h3 className="text-xl font-semibold text-white">
+                      <h3 className="text-lg md:text-xl font-semibold text-white">
 
                         {lecture.title}
 
@@ -113,28 +109,16 @@ export default function CoursePage() {
 
                     </div>
 
-                    {lecture.free || unlocked ? (
+                    <button
+                      onClick={() =>
+                        setSelectedVideo(lecture.videoUrl)
+                      }
+                      className="bg-cyan-400 text-black px-5 py-3 rounded-2xl font-bold hover:scale-105 transition"
+                    >
 
-                      <button
-                        onClick={() =>
-                          setSelectedVideo(lecture.video)
-                        }
-                        className="bg-cyan-400 text-black px-5 py-3 rounded-2xl font-bold hover:scale-105 transition"
-                      >
+                      Watch
 
-                        Watch
-
-                      </button>
-
-                    ) : (
-
-                      <button className="bg-zinc-800 text-zinc-400 px-5 py-3 rounded-2xl">
-
-                        🔒 Locked
-
-                      </button>
-
-                    )}
+                    </button>
 
                   </div>
 
@@ -146,7 +130,7 @@ export default function CoursePage() {
 
           </div>
 
-          {/* PDFs */}
+          {/* Study Materials */}
 
           <div className="bg-zinc-900 rounded-[40px] p-8 border border-cyan-500/20">
 
@@ -160,53 +144,18 @@ export default function CoursePage() {
 
               {materials.map((pdf: any, index: number) => (
 
-                pdf.free || unlocked ? (
+                <a
+                  key={index}
+                  href={pdf.pdf}
+                  target="_blank"
+                  className="block bg-black hover:bg-cyan-500/10 border border-cyan-500/20 rounded-3xl p-5 transition"
+                >
 
-                  <a
-                    key={index}
-                    href={pdf.pdf}
-                    target="_blank"
-                    className="block bg-black hover:bg-cyan-500/10 border border-cyan-500/20 rounded-3xl p-5 transition"
-                  >
-
-                    <div className="flex items-center justify-between">
-
-                      <div>
-
-                        <h3 className="text-xl font-semibold">
-
-                          {pdf.title}
-
-                        </h3>
-
-                        <p className="text-zinc-500 mt-1">
-
-                          Open PDF Notes
-
-                        </p>
-
-                      </div>
-
-                      <div className="text-3xl">
-
-                        📄
-
-                      </div>
-
-                    </div>
-
-                  </a>
-
-                ) : (
-
-                  <div
-                    key={index}
-                    className="bg-black border border-cyan-500/20 rounded-3xl p-5 flex items-center justify-between"
-                  >
+                  <div className="flex items-center justify-between">
 
                     <div>
 
-                      <h3 className="text-xl font-semibold">
+                      <h3 className="text-lg md:text-xl font-semibold">
 
                         {pdf.title}
 
@@ -214,21 +163,21 @@ export default function CoursePage() {
 
                       <p className="text-zinc-500 mt-1">
 
-                        Locked Notes
+                        Open PDF Notes
 
                       </p>
 
                     </div>
 
-                    <button className="bg-zinc-800 text-zinc-400 px-5 py-3 rounded-2xl">
+                    <div className="text-3xl">
 
-                      🔒 Locked
+                      📄
 
-                    </button>
+                    </div>
 
                   </div>
 
-                )
+                </a>
 
               ))}
 
