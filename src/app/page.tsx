@@ -63,7 +63,9 @@ export default function Home() {
 
       {/* FLOATING SOCIAL BUTTONS */}
 
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 mt-12 md:mt-20">
+{/* FLOATING SOCIAL BUTTONS */}
+
+<div className="fixed right-5 bottom-5 z-50 flex flex-col gap-4">
 
   {/* WHATSAPP GROUP */}
 
@@ -331,7 +333,7 @@ export default function Home() {
              <img
   src="/images/thumbnails/iit-thumb.jpg"
   alt="IIT Maths"
-  className="h-[220px] md:h-[320px] w-full object-cover bg-black"
+  className="h-[320px] w-full object-cover"
 />
 
               <div className="p-8">
@@ -359,7 +361,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/nda-thumb.jpg"
   alt="NDA Maths"
- className="h-[220px] md:h-[320px] w-full object-cover"
+ className="h-[320px] w-full object-cover"
 />
               <div className="p-8">
 
@@ -386,7 +388,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/upsc-thumb.jpg"
   alt="UPSC Maths"
-  className="h-[220px] md:h-[320px] w-full object-cover"
+  className="h-[320px] w-full object-cover"
 />
 
               <div className="p-8">
@@ -414,7 +416,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/engg-thumb.jpg"
   alt="Engineering Maths"
-  className="h-[220px] md:h-[320px] w-full object-cover"
+  className="h-[320px] w-full object-cover"
 />
               <div className="p-8">
 
