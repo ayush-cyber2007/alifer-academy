@@ -1,15 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import {
-  doc,
-  getDoc,
-  collection,
-  getDocs
-} from "firebase/firestore";
-
-import { auth, db } from "@/firebase/config";
 import { courses } from "../../../data/courseData";
 
 export default function CoursePage() {
