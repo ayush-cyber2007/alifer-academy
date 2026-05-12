@@ -17,7 +17,7 @@ export default function CoursePage() {
   const course = courses[0];
 
   const [selectedVideo, setSelectedVideo] = useState(
-    course.lectures[0].video
+    course.lectures[0].videoUrl
   );
 
   const [lectures, setLectures] = useState<any[]>([]);
