@@ -15,12 +15,13 @@ import { courses } from "../../../data/courseData";
 export default function CoursePage() {
 
   const course = courses[0];
+  const lectures = course.lectures;
 
   const [selectedVideo, setSelectedVideo] = useState(
     course.lectures[0].videoUrl
   );
 
-  const [lectures] = useState(course.lectures);
+
 
   const [materials, setMaterials] = useState<any[]>([]);
 
