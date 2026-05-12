@@ -22,7 +22,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
           <h1 className="text-3xl md:text-4xl font-black text-cyan-400 tracking-widest">
-            ALIFER ACADEMY
+            ALIFER ACADEMY NEW
           </h1>
 
           <div className="hidden md:flex items-center gap-5">
