@@ -11,9 +11,36 @@ import {
 } from "react-icons/fa";
 
 export default function Home() {
+const moveGlow = (
+  e: React.MouseEvent<HTMLDivElement>
+) => {
+
+  const glow =
+    document.getElementById(
+      "cursor-glow"
+    );
+
+  if (glow) {
+
+    glow.style.left = `${e.clientX}px`;
+
+    glow.style.top = `${e.clientY}px`;
+
+  }
+
+};
   return (
     <>
-    <main className="bg-black text-white overflow-x-hidden min-h-screen">
+    <main
+  onMouseMove={moveGlow}
+  className="bg-black text-white overflow-x-hidden min-h-screen relative"
+>
+  {/* CURSOR GLOW */}
+
+<div
+  id="cursor-glow"
+  className="hidden md:block fixed w-[300px] h-[300px] rounded-full bg-cyan-400/10 blur-[120px] pointer-events-none z-0 transition-all duration-75"
+></div>
 
       {/* NAVBAR */}
 
@@ -61,12 +88,10 @@ export default function Home() {
 
       </nav>
 
-      {/* FLOATING SOCIAL BUTTONS */}
-
+      
 {/* FLOATING SOCIAL BUTTONS */}
 
-<div className="fixed left-5 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
-
+<div className="fixed right-5 bottom-5 z-50 flex flex-col gap-4">
   {/* WHATSAPP GROUP */}
 
   <a
@@ -163,50 +188,65 @@ export default function Home() {
   </a>
 
 </div>
+{/* ANNOUNCEMENT BAR */}
+
+<div className="pt-24 overflow-hidden border-y border-cyan-500/10 bg-cyan-400/5">
+
+  <div className="announcement-track whitespace-nowrap py-4 text-cyan-300 font-semibold text-sm md:text-base">
+
+    🚀 NEW ENGINEERING MATHEMATICS BATCH LIVE NOW • 
+    🔥 PREMIUM NOTES + PYQS INCLUDED • 
+    🎯 IIT JAM SPECIAL CLASSES STARTED • 
+    💎 LIMITED ₹11 ACCESS OFFER • 
+    📚 300+ PREMIUM LECTURES AVAILABLE • 
+    🤖 AI DOUBT ASSISTANT LIVE •
+
+  </div>
+
+</div>
       {/* HERO */}
 
-      <section className=" hero-gridrelative pt-36 px-6">
+      <section className="hero-grid relative pt-36 px-6">
 
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-cyan-500/20 blur-[180px]"></div>
 
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/20 blur-[180px]"></div>
 
         <div className="max-w-7xl mx-auto">
-
           {/* SLIDER */}
 
-        <div className="w-full overflow-hidden rounded-[40px] border border-cyan-500/20">
+        <div className="w-full overflow-hidden rounded-[40px] border border-cyan-500/20 relative">
 
   <div className="slider-track">
 
     <img
       src="/images/banner1.jpg"
       alt="banner1"
-      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
+      className="slider-image"
     />
 
     <img
       src="/images/banner2.jpg"
       alt="banner2"
-      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
+      className="slider-image"
     />
 
     <img
       src="/images/banner3.jpg"
       alt="banner3"
-      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
+      className="slider-image"
     />
 
     <img
       src="/images/banner4.jpg"
       alt="banner4"
-      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
+      className="slider-image"
     />
 
     <img
       src="/images/banner5.jpg"
       alt="banner5"
-      className="slider-image w-full h-[260px] md:h-[520px] object-cover"
+      className="slider-image"
     />
 
   </div>
@@ -333,7 +373,7 @@ export default function Home() {
              <img
   src="/images/thumbnails/iit-thumb.jpg"
   alt="IIT Maths"
-  className="h-[320px] w-full object-cover"
+ className="w-full aspect-[3/4] object-cover object-top"
 />
 
               <div className="p-8">
@@ -361,7 +401,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/nda-thumb.jpg"
   alt="NDA Maths"
- className="h-[320px] w-full object-cover"
+ className="w-full aspect-[3/4] object-cover object-top"
 />
               <div className="p-8">
 
@@ -388,7 +428,7 @@ export default function Home() {
               <img
   src="/images/thumbnails/upsc-thumb.jpg"
   alt="UPSC Maths"
-  className="h-[320px] w-full object-cover"
+className="w-full aspect-[3/4] object-cover object-top"
 />
 
               <div className="p-8">
@@ -416,15 +456,15 @@ export default function Home() {
               <img
   src="/images/thumbnails/engg-thumb.jpg"
   alt="Engineering Maths"
-  className="h-[320px] w-full object-cover"
+  className="w-full mt-auto h-[260px] md:h-[520px] object-cover object-top"
 />
               <div className="p-8">
 
-                <h3 className="text-3xl font-black">
+                <h3 className="text-4xl md:text-5xl font-black leading-tight min-h-[110px]">
                   Engineering Maths
                 </h3>
 
-                <p className="text-zinc-400 mt-4">
+                <p className="text-zinc-400 mt-4 min-h-[60px]">
                   Unit-wise premium engineering mathematics batches.
                 </p>
 
@@ -814,27 +854,40 @@ body {
 }
 .slider-track {
   display: flex;
-  width: 500%;
-  animation: slider 25s infinite;
+  width: 500vw;
+  animation: slider 25s infinite ease-in-out;
+} 
+.slider-image {
+  width: 20%;
+  max-width: 100%;
+  height: 260px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
 }
 
+@media (min-width: 768px) {
 
-
-@keyframes slider {
-
-  0% {
-    transform: translateX(0);
+  .slider-image {
+    height: 520px;
   }
 
-  15% {
-    transform: translateX(0);
+}
+  @keyframes slider {
+
+  0% {
+    transform: translateX(0%);
+  }
+
+  18% {
+    transform: translateX(0%);
   }
 
   20% {
     transform: translateX(-100vw);
   }
 
-  35% {
+  38% {
     transform: translateX(-100vw);
   }
 
@@ -842,7 +895,7 @@ body {
     transform: translateX(-200vw);
   }
 
-  55% {
+  58% {
     transform: translateX(-200vw);
   }
 
@@ -850,7 +903,7 @@ body {
     transform: translateX(-300vw);
   }
 
-  75% {
+  78% {
     transform: translateX(-300vw);
   }
 
@@ -858,13 +911,14 @@ body {
     transform: translateX(-400vw);
   }
 
-  95% {
+  98% {
     transform: translateX(-400vw);
   }
 
   100% {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
+
 }
 
 @keyframes pulse {
@@ -879,6 +933,23 @@ body {
   100% {
     transform: scale(1);
   }
+}
+  .announcement-track {
+  display: inline-block;
+  min-width: 100%;
+  animation: marquee 18s linear infinite;
+}
+
+@keyframes marquee {
+
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+
 }
 `}</style> 
 </>

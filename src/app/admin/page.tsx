@@ -23,6 +23,20 @@ export default function AdminDashboard() {
 const [requests, setRequests] = useState<any[]>([]);
 const [activeTab, setActiveTab] = useState("dashboard");
 const [students, setStudents] = useState<any[]>([]);
+const [searchTerm, setSearchTerm] = useState("");
+const [mobileMenu, setMobileMenu] = useState(false);
+const approvedPayments =
+  requests.filter(
+    (req) => req.status === "approved"
+  ).length;
+
+const pendingPayments =
+  requests.filter(
+    (req) => req.status === "pending"
+  ).length;
+
+const totalRevenue =
+  approvedPayments * 11;
 const [lectureTitle, setLectureTitle] = useState("");
 const [lectureVideo, setLectureVideo] = useState("");
 const [lectureFree, setLectureFree] = useState(false);
@@ -213,7 +227,7 @@ const addLecture = async () => {
 
       {
         title: lectureTitle,
-        video: lectureVideo,
+        videoUrl: lectureVideo,
         free: lectureFree,
       }
 
@@ -254,6 +268,16 @@ const logout = async () => {
               ALIFER ADMIN
             </h1>
           </div>
+          <button
+  onClick={() =>
+    setMobileMenu(!mobileMenu)
+  }
+  className="md:hidden px-4 py-2 rounded-xl bg-cyan-400 text-black font-black"
+>
+
+  ☰
+
+</button>
 
           <div className="flex items-center gap-5">
 
@@ -261,9 +285,12 @@ const logout = async () => {
               Upload Lecture
             </button>
 
-            <button className="px-5 py-2 rounded-full border border-white/20 hover:border-cyan-400 transition">
-              Logout
-            </button>
+            <button
+  onClick={logout}
+  className="px-5 py-2 rounded-full border border-white/20 hover:border-cyan-400 transition"
+>
+  Logout
+</button>
 
           </div>
 
@@ -273,9 +300,17 @@ const logout = async () => {
       {/* MAIN */}
       <div className="flex pt-24">
 
-        {/* SIDEBAR */}
-        <aside className="w-[280px] min-h-screen border-r border-white/10 bg-zinc-950 p-6 hidden md:block">
-
+        <aside
+  className={`
+    fixed md:relative top-0 left-0 z-50
+    w-[280px] min-h-screen
+    border-r border-white/10
+    bg-zinc-950 p-6
+    transition-all duration-300
+    ${mobileMenu ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0
+  `}
+>
           <div className="space-y-4">
 
            
@@ -317,7 +352,16 @@ const logout = async () => {
   Logout
 </button>
 
+<button
+  onClick={() =>
+    setMobileMenu(false)
+  }
+  className="md:hidden w-full mt-6 px-5 py-4 rounded-2xl bg-cyan-400 text-black font-bold"
+>
 
+  Close Menu
+
+</button>
 </div>
 
 
@@ -336,29 +380,73 @@ const logout = async () => {
 
 
           {/* STATS */}
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
-            <div className="bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8">
-              <h2 className="text-5xl font-black text-cyan-400">15K+</h2>
-              <p className="text-zinc-400 mt-3">Students</p>
-            </div>
+  {/* TOTAL STUDENTS */}
 
-            <div className="bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8">
-              <h2 className="text-5xl font-black text-cyan-400">320+</h2>
-              <p className="text-zinc-400 mt-3">Lectures</p>
-            </div>
+  <div className="relative overflow-hidden bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8">
 
-            <div className="bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8">
-              <h2 className="text-5xl font-black text-cyan-400">₹2.4L</h2>
-              <p className="text-zinc-400 mt-3">Revenue</p>
-            </div>
+    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 blur-3xl"></div>
 
-            <div className="bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8">
-              <h2 className="text-5xl font-black text-cyan-400">98%</h2>
-              <p className="text-zinc-400 mt-3">Success Rate</p>
-            </div>
+    <h2 className="text-5xl font-black text-cyan-400">
+      {students.length}
+    </h2>
 
-          </div>
+    <p className="text-zinc-400 mt-3 text-lg">
+      Total Students
+    </p>
+
+  </div>
+
+  {/* APPROVED */}
+
+  <div className="relative overflow-hidden bg-zinc-900 border border-green-500/20 rounded-[35px] p-8">
+
+    <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/10 blur-3xl"></div>
+
+    <h2 className="text-5xl font-black text-green-400">
+      {approvedPayments}
+    </h2>
+
+    <p className="text-zinc-400 mt-3 text-lg">
+      Approved Payments
+    </p>
+
+  </div>
+
+  {/* PENDING */}
+
+  <div className="relative overflow-hidden bg-zinc-900 border border-yellow-500/20 rounded-[35px] p-8">
+
+    <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 blur-3xl"></div>
+
+    <h2 className="text-5xl font-black text-yellow-400">
+      {pendingPayments}
+    </h2>
+
+    <p className="text-zinc-400 mt-3 text-lg">
+      Pending Requests
+    </p>
+
+  </div>
+
+  {/* REVENUE */}
+
+  <div className="relative overflow-hidden bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8">
+
+    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 blur-3xl"></div>
+
+    <h2 className="text-5xl font-black text-cyan-400">
+      ₹{totalRevenue}
+    </h2>
+
+    <p className="text-zinc-400 mt-3 text-lg">
+      Total Revenue
+    </p>
+
+  </div>
+
+</div>
 
           {/* QUICK ACTIONS */}
           <div className="mt-12 grid md:grid-cols-3 gap-8">
@@ -411,6 +499,133 @@ const logout = async () => {
 )}
 {activeTab === "payments" && (
 <>
+{/* LIVE ACTIVITY */}
+
+<div className="mt-14">
+
+  <div className="flex items-center justify-between mb-8">
+
+    <h2 className="text-4xl font-black">
+
+      Live Activity
+
+    </h2>
+
+    <div className="px-5 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 font-bold">
+
+      LIVE
+
+    </div>
+
+  </div>
+
+  <div className="space-y-5">
+
+    {/* ACTIVITY 1 */}
+
+    <div className="relative overflow-hidden bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-7">
+
+      <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 blur-3xl"></div>
+
+      <div className="flex items-center gap-5">
+
+        <div className="w-14 h-14 rounded-full bg-cyan-400 text-black flex items-center justify-center text-2xl font-black">
+
+          A
+
+        </div>
+
+        <div>
+
+          <h3 className="text-xl font-bold">
+
+            Ayush purchased Engineering Mathematics
+
+          </h3>
+
+          <p className="text-zinc-500 mt-2">
+
+            2 minutes ago
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* ACTIVITY 2 */}
+
+    <div className="relative overflow-hidden bg-zinc-900 border border-green-500/20 rounded-[35px] p-7">
+
+      <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/10 blur-3xl"></div>
+
+      <div className="flex items-center gap-5">
+
+        <div className="w-14 h-14 rounded-full bg-green-400 text-black flex items-center justify-center text-2xl font-black">
+
+          R
+
+        </div>
+
+        <div>
+
+          <h3 className="text-xl font-bold">
+
+            Rahul joined the platform
+
+          </h3>
+
+          <p className="text-zinc-500 mt-2">
+
+            8 minutes ago
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* ACTIVITY 3 */}
+
+    <div className="relative overflow-hidden bg-zinc-900 border border-yellow-500/20 rounded-[35px] p-7">
+
+      <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 blur-3xl"></div>
+
+      <div className="flex items-center gap-5">
+
+        <div className="w-14 h-14 rounded-full bg-yellow-400 text-black flex items-center justify-center text-2xl font-black">
+
+          P
+
+        </div>
+
+        <div>
+
+          <h3 className="text-xl font-bold">
+
+            New payment request submitted
+
+          </h3>
+
+          <p className="text-zinc-500 mt-2">
+
+            15 minutes ago
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 {/* PAYMENT REQUESTS */}
 
 <div className="mt-14">
@@ -428,59 +643,119 @@ const logout = async () => {
   .map((request) => (
 
       <div
-        key={request.id}
-        className="bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8"
-      >
+  key={request.id}
+  className="relative overflow-hidden bg-zinc-900 border border-cyan-500/20 rounded-[35px] p-8"
+>
 
-        <h3 className="text-2xl font-bold">
+  {/* GLOW */}
+
+  <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-400/10 blur-3xl"></div>
+
+  {/* TOP */}
+
+  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+    <div className="flex items-center gap-5">
+
+      {/* AVATAR */}
+
+      <div className="w-16 h-16 rounded-full bg-cyan-400 text-black flex items-center justify-center text-2xl font-black">
+
+        {request.email?.charAt(0).toUpperCase()}
+
+      </div>
+
+      <div>
+
+        <h3 className="text-2xl font-black">
 
           {request.email}
 
         </h3>
 
-        <p className="text-zinc-400 mt-3">
+        <p className="text-zinc-400 mt-2">
 
-          Course:
-          {" "}
-          {request.courseId}
+          Engineering Mathematics Course
 
         </p>
-
-        <p className="mt-2">
-
-          Status:
-          {" "}
-          <span className="text-cyan-400">
-
-            {request.status}
-
-          </span>
-
-        </p>
-
-        <div className="flex gap-5 mt-6">
-
-          <button
-            onClick={() => approveRequest(request)}
-            className="bg-cyan-400 text-black px-6 py-3 rounded-2xl font-bold"
-          >
-
-            Approve
-
-          </button>
-
-          <button
-            onClick={() => rejectRequest(request.id)}
-            className="bg-red-500 text-white px-6 py-3 rounded-2xl font-bold"
-          >
-
-            Reject
-
-          </button>
-
-        </div>
 
       </div>
+
+    </div>
+
+    {/* STATUS */}
+
+    <div className="px-5 py-3 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 font-bold w-fit">
+
+      Pending Approval
+
+    </div>
+
+  </div>
+
+  {/* DETAILS */}
+
+  <div className="mt-8 grid sm:grid-cols-2 gap-6">
+
+    <div className="bg-black/40 border border-white/5 rounded-2xl p-5">
+
+      <p className="text-zinc-500 text-sm">
+
+        Course ID
+
+      </p>
+
+      <h3 className="text-lg font-bold mt-2">
+
+        {request.courseId}
+
+      </h3>
+
+    </div>
+
+    <div className="bg-black/40 border border-white/5 rounded-2xl p-5">
+
+      <p className="text-zinc-500 text-sm">
+
+        Payment Status
+
+      </p>
+
+      <h3 className="text-lg font-bold text-yellow-400 mt-2">
+
+        {request.status}
+
+      </h3>
+
+    </div>
+
+  </div>
+
+  {/* BUTTONS */}
+
+  <div className="flex flex-wrap gap-5 mt-10">
+
+    <button
+      onClick={() => approveRequest(request)}
+      className="px-8 py-4 rounded-2xl bg-cyan-400 text-black font-black hover:scale-105 transition"
+    >
+
+      Approve Payment
+
+    </button>
+
+    <button
+      onClick={() => rejectRequest(request.id)}
+      className="px-8 py-4 rounded-2xl bg-red-500 text-white font-black hover:scale-105 transition"
+    >
+
+      Reject
+
+    </button>
+
+  </div>
+
+</div>
 
     ))}
 
@@ -596,10 +871,29 @@ const logout = async () => {
       Registered Students
 
     </h2>
+    <div className="mb-8">
+
+  <input
+    type="text"
+    placeholder="Search student email..."
+    value={searchTerm}
+    onChange={(e) =>
+      setSearchTerm(e.target.value)
+    }
+    className="w-full bg-zinc-900 border border-cyan-500/20 rounded-[25px] px-6 py-5 outline-none text-white"
+  />
+
+</div>
 
     <div className="space-y-5">
 
-      {students.map((student: any, index: number) => (
+      {students
+  .filter((student) =>
+    student.email
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  )
+  .map((student: any, index: number) => (
 
         <div
           key={index}
@@ -643,6 +937,57 @@ const logout = async () => {
     Add New Lecture
 
   </h3>
+
+  <div className="space-y-5">
+
+    <input
+      type="text"
+      placeholder="Lecture Title"
+      value={lectureTitle}
+      onChange={(e) =>
+        setLectureTitle(e.target.value)
+      }
+      className="w-full bg-black border border-zinc-700 rounded-2xl px-5 py-4 outline-none"
+    />
+
+    <input
+      type="text"
+      placeholder="YouTube Embed Link"
+      value={lectureVideo}
+      onChange={(e) =>
+        setLectureVideo(e.target.value)
+      }
+      className="w-full bg-black border border-zinc-700 rounded-2xl px-5 py-4 outline-none"
+    />
+
+    <div className="flex items-center gap-4">
+
+      <input
+        type="checkbox"
+        checked={lectureFree}
+        onChange={(e) =>
+          setLectureFree(e.target.checked)
+        }
+      />
+
+      <p>
+
+        Free Lecture
+
+      </p>
+
+    </div>
+
+    <button
+      onClick={addLecture}
+      className="bg-cyan-400 text-black px-8 py-4 rounded-2xl font-bold"
+    >
+
+      Upload Lecture
+
+    </button>
+
+  </div>
 
   <div className="space-y-5">
 
